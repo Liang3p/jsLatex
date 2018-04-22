@@ -8,9 +8,15 @@ This branch is forked from [dreasgrech/jsLatex](https://github.com/dreasgrech/js
 2. Align inline equations.
 3. Set SVG by default.
 
+## Usage
+Here's an example in this demo page:
+![](http://ww1.sinaimg.cn/large/a92183f7gy1fqlaxgirnxj20p00k0gmh.jpg)
+
 ## Knownbugs:
 Some Multi-line equations can't rendered correctly such as the Maxwell's equations , the API can't handdle double dollar `$$` syntax. But It's acceptable in single-line equation.
+
 It's Highly Suggested to test on [this site](http://www.codecogs.com/latex/eqneditor.php) first.
+
 For example:
 The single-line equation `$$x=\frac{-b \pm \sqrt{\Delta }}{2a}=\frac{-b \pm \sqrt{b^{2}-4ac }}{2a}$$` can be rendered .
 It will faild when you try to convert the multi-line equations:
