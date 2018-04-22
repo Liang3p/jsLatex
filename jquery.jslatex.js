@@ -1,6 +1,10 @@
 /*
+ * forked from dreasgrech/jsLatex
+ *     fix escape bugs in LaTex equation
+ *     Bugs Report: liang3p@gmail.com
+ *
  * jsLaTeX v1.2.2 - A jQuery plugin to directly embed LaTeX into your website or blog
- * 
+ *
  *  Copyright (c) 2009 Andreas Grech
  *
  *  Licensed under the WTFPL license:
@@ -12,12 +16,14 @@
 (function ($) {
     var attachToImage = function () {
         return $("<img/>").attr({
-            src: this.src
+            src: this.src,
+            style:'margin-bottom: -4px;'    //Align inline equations
         });
     },
         formats = {
         'gif': attachToImage,
         'png': attachToImage,
+        'svg': attachToImage,
         'swf': function () {
             return $("<embed/>").attr({
                 src: this.src,
@@ -28,28 +34,19 @@
         sections = {
         '{f}': 'format',
         '{e}': 'equation'
-    },
-        escapes = {
-        '+': '2B',
-        '=': '3D'
     };
 
     $.fn.latex = function (opts) {
         opts = $.extend({},
         $.fn.latex.defaults, opts);
-        opts.format = formats[opts.format] ? opts.format : 'gif';
+        opts.format = formats[opts.format] ? opts.format : 'svg';    //set svg by defaults
         return this.each(function () {
             var $this = $(this),
                 format, s, element, url = opts.url;
-            opts.equation = $.trim($this.text());
+            opts.equation = escape($.trim($this.text()));    //just escape the equation
             for (s in sections) {
                 if (sections.hasOwnProperty(s) && (format = url.indexOf(s)) >= 0) {
                     url = url.replace(s, opts[sections[s]]);
-                }
-            }
-            for (s in escapes) {
-                if (escapes.hasOwnProperty(s) && (format = url.indexOf(s)) >= 0) {
-                    url = url.replace(s, '%' + escapes[s]);
                 }
             }
             opts.src = url;
@@ -62,7 +59,7 @@
     };
 
     $.fn.latex.defaults = {
-        format: 'gif',
+        format: 'svg',    //set svg by defaults
         url: 'http://latex.codecogs.com/{f}.latex?{e}'
     };
 }(jQuery));
