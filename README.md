@@ -26,7 +26,7 @@ $$
 ```
 ![](http://ww1.sinaimg.cn/large/a92183f7gy1fqlajt1j0kj20yu0cojtq.jpg)
 
-Use single dollar will be OK.
+Use single dollar is OK.
 ```
 $
 \begin{eqnarray}
